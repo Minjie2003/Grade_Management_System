@@ -1,0 +1,138 @@
+{% extends 'index_manager.html' %}
+
+{% block content %}
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="/static/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+              <h1 class="h4">{{ request.session.info.name }}</h1>
+              <p>{{ request.session.info.user_id }}</p>
+            </div>
+          </div>
+          <ul class="list-unstyled">
+                    <li><a href="/index/manager"> <i class="icon-home"></i>主页 </a></li>
+                    <li><a href="/index/manager/adduser"> <i class="icon-user"></i>添加用户</a></li>
+                    <li><a href="/index/manager/addcourse"> <i class="icon-page"></i>添加课程</a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom">系统管理</h2>
+            </div>
+          </header>
+          <!-- Dashboard Counts Section-->
+          <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+              <div class="row bg-white has-shadow">
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-violet"><i class="icon-user"></i></div>
+                    <div class="title"><span>管理员</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ man_num }}</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-red"><i class="icon-padnote"></i></div>
+                    <div class="title"><span>教师</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ tea_num }}</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-green"><i class="icon-bill"></i></div>
+                    <div class="title"><span>学生</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ stu_num }}</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-orange"><i class="icon-check"></i></div>
+                     <div class="title"><span><a href="/index/manager/courseseek">课程</a></span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ user_count }}</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Dashboard Header Section    -->
+
+          <section class="client">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4 mx-auto bg-white">
+                  <br>
+                  <div class="content">
+                    <form method="post" class="form-validate">
+                        {% csrf_token %}   <!---验证的保护机制--->
+                        <div class="row">
+                          <div class="col-lg-4"><p>请输入课程号:</p></div>
+                            <div class="form-group input-group-sm col-lg-8">
+                              <input aria-describedby="sizing-addon3" type="text" placeholder="请输入课程号" value="{{ nid }}" name="course_id" readonly data-msg="请输入id" class="input-material form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4"><p>请输入学号:</p></div>
+                            <div class="form-group input-group-sm col-lg-8">
+                              <input aria-describedby="sizing-addon3" type="text" placeholder="请输入学号" name="student_id"  data-msg="请输入学号" class="input-material form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4"><p>请输入出勤分:</p></div>
+                            <div class="form-group input-group-sm col-lg-8">
+                              <input aria-describedby="sizing-addon3" type="text" placeholder="请输入出勤分" name="attend_point" data-msg="请输入出勤分" class="input-material form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4"><p>请输入卷面分:</p></div>
+                            <div class="form-group input-group-sm col-lg-8">
+                              <input aria-describedby="sizing-addon3" type="text" placeholder="请输入卷面分" name="exam_point" data-msg="请输入卷面分" class="input-material form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <input id="register" type="submit" name="registerSubmit" class="btn btn-primary"></input>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <footer class="main-footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-7 text-right">
+                  <p >Created By 2023</p>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+{% endblock %}

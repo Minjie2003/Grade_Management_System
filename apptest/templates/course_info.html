@@ -1,0 +1,141 @@
+{% extends 'index_manager.html' %}
+
+{% block content %}
+ <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="/static/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+              <h1 class="h4">{{ request.session.info.name }}</h1>
+              <p>{{ request.session.info.user_id }}</p>
+            </div>
+          </div>
+          <ul class="list-unstyled">
+                    <li><a href="/index/manager"> <i class="icon-home"></i>主页 </a></li>
+                    <li><a href="/index/manager/adduser"> <i class="icon-user"></i>添加用户</a></li>
+                    <li><a href="/index/manager/addcourse"> <i class="icon-page"></i>添加课程</a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom">系统管理</h2>
+            </div>
+          </header>
+          <!-- Dashboard Counts Section-->
+          <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+              <div class="row bg-white has-shadow">
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-violet"><i class="icon-user"></i></div>
+                    <div class="title"><span>管理员</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ man_num }}</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-red"><i class="icon-padnote"></i></div>
+                    <div class="title"><span>教师</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ tea_num }}</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-green"><i class="icon-bill"></i></div>
+                    <div class="title"><span>学生</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ stu_num }}</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-orange"><i class="icon-check"></i></div>
+                    <div class="title"><span><a href="/index/manager/courseseek">课程</a></span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ user_count }}</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Dashboard Header Section    -->
+
+          <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="btn btn-xs"  role="group" aria-label="...">
+                  <button type="button" class="btn bg-white btn-default"><a href="/index/manager/{{ nid }}/addcourseinfo">添加信息</a></button>
+                </div>
+            </div>
+          </section>
+
+         <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+              <div class="row bg-white has-shadow">
+                <div class="panel panel-default table-responsive">
+                  <!-- Default panel contents -->
+                  <div class="panel-heading text-center"><strong>用户列表(共{{ courseinfo_num }}人)</strong></div>
+
+                  <!-- Table -->
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>课程号</th>
+                        <th>学号</th>
+                        <th>出勤分</th>
+                        <th>卷面分</th>
+                        <th>管理</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     {% for obj in courseinfo %}
+                      <tr>
+                        <th>{{ nid }}</th>
+                        <td>{{ obj.student_id }}</td>
+                        <td>{{ obj.attend_point }}</td>
+                        <td>{{ obj.exam_point }}</td>
+                        <td>
+                          <a class="btn btn-danger btn-xs" style="color:white" href="/index/manager/{{ nid }}/delcourseinfo/?student_id={{ obj.student_id }}">删除</a>
+                        </td>
+                      </tr>
+                     {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <footer class="main-footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-7 text-right">
+                  <p >Created By 2023</p>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+{% endblock %}
